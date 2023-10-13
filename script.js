@@ -1,53 +1,53 @@
-class Person {
-    constructor(name, age) {
-        this.name = name;
-        this.age = age;
-    }
+function SuperMath(X, Y, znak) {
+    this.X = X;
+    this.Y = Y;
+    this.znak = znak;
 }
 
-class Car {
-    constructor(brand, model, year, licensePlate) {
-        this.brand = brand;
-        this.model = model;
-        this.year = year;
-        this.licensePlate = licensePlate;
-        this.owner = null;
+SuperMath.prototype.performOperation = function () {
+    switch (this.znak) {
+        case '+':
+            return this.X + this.Y;
+        case '-':
+            return this.X - this.Y;
+        case '/':
+            return this.X / this.Y;
+        case '*':
+            return this.X * this.Y;
+        case '%':
+            return this.X % this.Y;
+        default:
+            return 'Недійсний оператор';
     }
+};
 
-    assignOwner(owner) {
-        const currentYear = new Date().getFullYear();
-        const ownerAge = currentYear - owner.age;
+SuperMath.prototype.check = function (obj) {
+    const validOperators = ['+', '-', '/', '*', '%'];
 
-        if (ownerAge >= 18) {
-            this.owner = owner;
-            console.log(`Власник: ${owner.name}`);
+    if (validOperators.includes(obj.znak)) {
+        const confirmMessage = `Ви хочете зробити операцію ${obj.znak} з ${obj.X} і ${obj.Y}? (так/ні)`;
+        const userConfirm = confirm(confirmMessage);
+
+        if (userConfirm) {
+            return this.performOperation();
         } else {
-            console.log('Власник повинен бути не менше 18 років.');
+            const userInput = this.input();
+            return userInput.performOperation();
         }
+    } else {
+        return 'Недійсний оператор. Укажіть дійсний оператор.';
     }
+};
 
-    displayInfo() {
-        console.log(`Aвтомобіль: ${this.brand} ${this.model}`);
-        console.log(`Рік: ${this.year}, Номерний знак: ${this.licensePlate}`);
-        if (this.owner) {
-            console.log('Інформація про власника:');
-            console.log(`Ім'я: ${this.owner.name}, Вік: ${this.owner.age}`);
-        } else {
-            console.log('Власник не призначений.');
-        }
-    }
-}
+SuperMath.prototype.input = function () {
+    const newX = parseFloat(prompt('Введіть нове значення для X:'));
+    const newY = parseFloat(prompt('Введіть нове значення для Y:'));
+    const newZnak = prompt('Введіть дійсний оператор (+, -, /, *, %):');
 
+    return new SuperMath(newX, newY, newZnak);
+};
 
-const person1 = new Person('Вася', 25);
-const person2 = new Person('Петя', 16);
-
-const car1 = new Car('Toyota', 'Corolla', 2020, 'AB123CD');
-car1.assignOwner(person1);
-
-const car2 = new Car('Honda', 'Civic', 2018, 'XY456Z');
-car2.assignOwner(person2);
-
-car1.displayInfo();
-console.log('------------------------');
-car2.displayInfo();
+// Example usage
+const obj = new SuperMath(12, 3, '/');
+const result = obj.check(obj);
+console.log('Результат:', result);
