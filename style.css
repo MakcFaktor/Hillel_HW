@@ -1,0 +1,27 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.calculator {
+  max-width: 400px;
+}
+
+.block-diagram {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.green-block {
+  width: 20px;
+  background-color: green;
+}
+
+.red-block {
+  width: 20px;
+  background-color: red;
+}

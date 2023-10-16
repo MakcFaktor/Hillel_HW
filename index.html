@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
-  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <body>
+    <div class="calculator">
+      <label for="rangeInput">Виберіть значення:</label>
+      <input type="range" id="rangeInput" min="0" max="100" value="0" />
+      <input
+        type="number"
+        id="numberInput"
+        min="0"
+        max="100"
+        value="0"
+        disabled
+      />
+      <div class="block-diagram">
+        <div class="red-block" id="redBlock"></div>
+        <div class="green-block" id="greenBlock"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
