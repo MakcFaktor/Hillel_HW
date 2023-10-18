@@ -1,47 +1,31 @@
-const rangeInput = document.getElementById('rangeInput');
-const numberInput = document.getElementById('numberInput');
-const greenBlock = document.getElementById('greenBlock');
-const redBlock = document.getElementById('redBlock');
+let table = document.getElementById('myTable');
+let count = 1;
 
-function calculateCommission(value) {
-    const commissionRates = {
-        20: 0.02,
-        50: 0.04,
-        75: 0.06,
-        100: 0.08
-    };
+function addCellWithDelay(i, j) {
+    setTimeout(function () {
+        let row = table.rows[i];
+        let cell = row.insertCell(j);
+        cell.textContent = count;
 
-    let commission = 0;
-    for (const rate in commissionRates) {
-        if (value <= parseFloat(rate)) {
-            commission = commissionRates[rate];
-            break;
-        }
+        let randomColor = getRandomColor();
+        cell.style.backgroundColor = randomColor;
+
+        count++;
+    }, (i * 10 + j) * 100);
+}
+
+for (let i = 0; i < 10; i++) {
+    let row = table.insertRow(i);
+    for (let j = 0; j < 10; j++) {
+        addCellWithDelay(i, j);
     }
-
-    return commission;
 }
 
-function updateDiagram(value) {
-    const commission = calculateCommission(value);
-    const commissionHeight = value * commission;
-
-    const totalAmount = parseFloat(value) + parseFloat(value) * commission;
-    redBlock.style.height = `${commissionHeight}px`;
-    greenBlock.style.height = `${value}px`;
-
-    console.log(`Комісія: ${commission * 100}%, Загальна кількість: ${totalAmount}`);
+function getRandomColor() {
+    let letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
-
-rangeInput.addEventListener('input', (event) => {
-    const value = event.target.value;
-    numberInput.value = value;
-    updateDiagram(value);
-});
-
-numberInput.addEventListener('input', (event) => {
-    const value = event.target.value;
-    rangeInput.value = value;
-});
-
-
