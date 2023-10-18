@@ -1,31 +1,14 @@
-let table = document.getElementById('myTable');
-let count = 1;
+function displayRandomImage() {
+    const imagesFolder = 'img/';
+    const imageContainer = document.getElementById('imageContainer');
 
-function addCellWithDelay(i, j) {
-    setTimeout(function () {
-        let row = table.rows[i];
-        let cell = row.insertCell(j);
-        cell.textContent = count;
+    const randomImageNumber = Math.floor(Math.random() * 9) + 1;
+    const imageElement = document.createElement('img');
 
-        let randomColor = getRandomColor();
-        cell.style.backgroundColor = randomColor;
+    imageElement.src = `${imagesFolder}${randomImageNumber}.jpg`;
+    imageElement.alt = `Зображення ${randomImageNumber}`;
 
-        count++;
-    }, (i * 10 + j) * 100);
-}
+    imageContainer.innerHTML = '';
 
-for (let i = 0; i < 10; i++) {
-    let row = table.insertRow(i);
-    for (let j = 0; j < 10; j++) {
-        addCellWithDelay(i, j);
-    }
-}
-
-function getRandomColor() {
-    let letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    imageContainer.appendChild(imageElement);
 }
